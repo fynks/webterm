@@ -1,0 +1,181 @@
+{
+  "system": {
+    "name": "Fedora Linux",
+    "user": "fedora",
+    "host": "fedora-workstation",
+    "version": "WebTerm v2.0",
+    "commandNotFound": "bash: {cmd}: command not found",
+    "packageManager": "dnf"
+  },
+  "filesystem": {
+    "~": ["README.md", "Documents/", "Downloads/", "Desktop/", ".bashrc", ".config/"],
+    "~/Documents/": ["notes.txt", "projects/", "fedora-info.txt"],
+    "~/Downloads/": ["rpmfusion-release.rpm", "vscode.rpm"],
+    "~/Desktop/": ["Fedora_Tips.txt", "applications.desktop"],
+    "~/.config/": ["fontconfig/", "gtk-3.0/", "pulse/"]
+  },
+  "files": {
+    "README.md": "🐧 Welcome to Fedora Linux on WebTerm!\n\n✨ Features:\n- DNF package management simulation\n- GNOME desktop environment (default)\n- Latest software packages\n- Strong developer focus\n- SELinux security\n\n📚 Getting Started:\n- Type 'help' to see all available commands\n- Type 'dnf search' to search for packages\n- Type 'rpm -qa' to list installed packages\n- Type 'firewall-cmd --list-all' for firewall info\n\n🎨 This is a simulation of Fedora 38 Workstation.\nExplore the cutting-edge Linux experience!\n\n💡 Pro tip: Try 'neofetch' to see your Fedora system info!",
+    "notes.txt": "📝 Fedora User Notes:\n\n🎯 Todo:\n- Update system with 'sudo dnf update'\n- Enable RPM Fusion repositories\n- Install multimedia codecs\n- Configure development environment\n\n💭 Fedora Features:\n- Latest software packages (6-month releases)\n- GNOME desktop by default\n- Strong focus on developers\n- SELinux enabled by default\n- Flatpak support\n- Wayland by default\n\n🚀 Completed:\n✅ Initial Fedora setup\n✅ WebTerm configuration\n✅ Basic command familiarity",
+    ".bashrc": "# .bashrc\n\n# Source global definitions\nif [ -f /etc/bashrc ]; then\n\t. /etc/bashrc\nfi\n\n# User specific environment\nif ! [[ \"$PATH\" =~ \"$HOME/.local/bin:$HOME/bin:\" ]]\nthen\n    PATH=\"$HOME/.local/bin:$HOME/bin:$PATH\"\nfi\nexport PATH\n\n# Fedora aliases\nalias ll='ls -alF --color=auto'\nalias la='ls -A --color=auto'\nalias l='ls -CF --color=auto'\nalias grep='grep --color=auto'\n\n# Fedora-specific aliases\nalias dnf-search='dnf search'\nalias dnf-info='dnf info'\nalias rpm-qa='rpm -qa'\n\n# User specific aliases and functions\nif [ -d ~/.bashrc.d ]; then\n\tfor rc in ~/.bashrc.d/*; do\n\t\tif [ -f \"$rc\" ]; then\n\t\t\t. \"$rc\"\n\t\tfi\n\tdone\nfi\n\nunset rc",
+    "fedora-info.txt": "🔒 Important Fedora Information:\n\n📋 System Details:\n- Distribution: Fedora 38 Workstation\n- Kernel: Linux 6.3.12-200.fc38.x86_64\n- Desktop: GNOME 44\n- Package Manager: DNF + RPM\n- Security: SELinux enforcing\n\n🛠️ Key Commands:\n- sudo dnf update\n- sudo dnf install package-name\n- rpm -qa | grep package\n- systemctl status service-name\n- firewall-cmd --list-all\n\n🌐 Resources:\n- Fedora Official: https://getfedora.org\n- Community: https://ask.fedoraproject.org\n- Documentation: https://docs.fedoraproject.org"
+  },
+  "motd": [
+    "🐧 Welcome to Fedora Linux 38 (WebTerm v2.0)",
+    "   ",
+    " ✨ Features: DNF | GNOME | SELinux | Latest Software",
+    " 📚 Documentation:  https://docs.fedoraproject.org/",
+    " 💬 Community:      https://ask.fedoraproject.org/",
+    "   ",
+    " 💡 Type 'help' for available commands | 'theme' to toggle themes",
+    " 🎯 Try: dnf search, rpm -qa, firewall-cmd --list-all, neofetch",
+    "   "
+  ],
+  "commands": {
+    "help": {
+      "description": "Shows a list of available commands with descriptions"
+    },
+    "clear": {
+      "description": "Clears the terminal screen"
+    },
+    "ls": {
+      "description": "Lists files and directories in the current location",
+      "output": "📄 README.md   📁 Documents/   📁 Downloads/   📁 Desktop/   📄 .bashrc   📁 .config/"
+    },
+    "pwd": {
+      "description": "Prints the current working directory path",
+      "output": "/home/fedora"
+    },
+    "whoami": {
+      "description": "Displays the current username",
+      "output": "fedora"
+    },
+    "uname": {
+      "description": "Shows system information",
+      "output": "Linux"
+    },
+    "uname -a": {
+      "description": "Shows detailed system information",
+      "output": "Linux fedora-workstation 6.3.12-200.fc38.x86_64 #1 SMP PREEMPT_DYNAMIC Thu Jun 22 16:45:35 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux"
+    },
+    "uname -r": {
+      "description": "Shows the kernel release version",
+      "output": "6.3.12-200.fc38.x86_64"
+    },
+    "date": {
+      "description": "Displays current date and time",
+      "action": "showDate"
+    },
+    "uptime": {
+      "description": "Shows how long the system has been running",
+      "output": "up 3 hours, 42 minutes, 1 user, load average: 0.12, 0.18, 0.22"
+    },
+    "neofetch": {
+      "description": "Displays a colorful system information screen",
+      "output": [
+        "             .',;::::;,'.                fedora@fedora-workstation",
+        "         .';;;;;;;;;;;;;,'.             -------------------------",
+        "      .,;;;;;;;;;;;;;;;;;;;;;,.         OS: Fedora Linux 38 (Workstation Edition)",
+        "    .;;;;;;;;;;;;;;;;;;;;;;;;;;;;;.     Kernel: 6.3.12-200.fc38.x86_64",
+        "   ,;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,    Uptime: 3 hours, 42 mins",
+        "  ';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;'    Packages: 2847 (rpm), 45 (flatpak)",
+        " .;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;'      Shell: WebTerm v2.0",
+        " ,;;;;;;;;;;;;;;;;;;;;;;;;;;;;;'          Resolution: 1920x1080",
+        " ';;;;;;;;;;;;;;;;;;;;;;;;;;;;;'          DE: GNOME 44.3",
+        " .;;;;;;;;;;;;;;;;;;;;;;;;;;;;,           WM: Mutter (Wayland)",
+        "  .;;;;;;;;;;;;;;;;;;;;;;;;;,             Theme: Adwaita [GTK3]",
+        "   .;;;;;;;;;;;;;;;;;;;;;,.              Icons: Adwaita [GTK3]",
+        "     .;;;;;;;;;;;;;;;;;'.                Terminal: WebTerm",
+        "        .'''';;;;''''.                   CPU: Simulated x86_64",
+        "                                          Memory: Virtual"
+      ]
+    },
+    "hostnamectl": {
+      "description": "Shows hostname and system information",
+      "output": "Static hostname: fedora-workstation\nIcon name: computer-laptop\nChassis: laptop\nMachine ID: a1b2c3d4e5f6789012345678901234567890\nBoot ID: 9876543210fedcba0987654321fedcba98765432\nOperating System: Fedora Linux 38 (Workstation Edition)\nKernel: Linux 6.3.12-200.fc38.x86_64\nArchitecture: x86-64\nHardware Vendor: WebTerm Virtual Machine\nHardware Model: Simulation v2.0"
+    },
+    "echo": {
+      "description": "Displays the specified text or variables"
+    },
+    "cat": {
+      "description": "Displays the contents of files",
+      "error": "cat: missing file operand"
+    },
+    "dnf": {
+      "description": "Fedora package manager (simulated)",
+      "output": "dnf 4.16.1\nUsage: dnf [options] COMMAND\n\nCommands:\n  install - install packages\n  remove - remove packages\n  update - update installed packages\n  search - search package details\n  info - show package information\n  list - list packages"
+    },
+    "dnf update": {
+      "description": "Updates all packages",
+      "output": "Fedora 38 - x86_64                      128 MB/s |  84 MB     00:00\nFedora 38 openh264 (From Cisco)          2.1 kB/s | 2.5 kB     00:01\nFedora 38 - x86_64 - Updates             92 MB/s |  28 MB     00:00\nLast metadata expiration check: 0:00:01 ago.\nDependencies resolved.\nNothing to do.\nComplete!"
+    },
+    "dnf search": {
+      "description": "Searches for packages",
+      "output": "Last metadata expiration check: 0:05:23 ago.\n======================================= Name Exactly Matched =======================================\nvim-enhanced.x86_64 : A version of the VIM editor which includes recent enhancements\n======================================= Name & Summary Matched ======================================\nfirefox.x86_64 : Mozilla Firefox Web browser\ncode.x86_64 : Visual Studio Code\ngit.x86_64 : Fast Version Control System"
+    },
+    "dnf list": {
+      "description": "Lists packages",
+      "output": "Last metadata expiration check: 0:05:24 ago.\nInstalled Packages\nbash.x86_64                       5.2.15-3.fc38               @anaconda\nfirefox.x86_64                    117.0-2.fc38                @updates\ngnome-shell.x86_64               44.3-1.fc38                 @updates\nkernel.x86_64                     6.3.12-200.fc38            @updates"
+    },
+    "rpm": {
+      "description": "RPM package manager (simulated)",
+      "output": "RPM version 4.18.1\nUsage: rpm [OPTION...]\n\nQuery options (with -q or --query):\n  -a, --all                        query all packages\n  -f, --file FILE                  query package owning FILE\n  -p, --package PACKAGE            query package PACKAGE"
+    },
+    "rpm -qa": {
+      "description": "Lists all installed RPM packages",
+      "output": "bash-5.2.15-3.fc38.x86_64\nfirefox-117.0-2.fc38.x86_64\ngnome-shell-44.3-1.fc38.x86_64\nkernel-6.3.12-200.fc38.x86_64\nvim-enhanced-9.0.1592-1.fc38.x86_64\ngit-2.40.1-1.fc38.x86_64\nsystemd-253.8-1.fc38.x86_64"
+    },
+    "firewall-cmd": {
+      "description": "Firewall management tool (simulated)",
+      "output": "FirewallD is not running"
+    },
+    "firewall-cmd --list-all": {
+      "description": "Lists all firewall zones and rules",
+      "output": "public (active)\n  target: default\n  icmp-block-inversion: no\n  interfaces: enp0s3\n  sources:\n  services: dhcpv6-client ssh\n  ports:\n  protocols:\n  forward: no\n  masquerade: no\n  forward-ports:\n  source-ports:\n  icmp-blocks:\n  rich rules:"
+    },
+    "selinux": {
+      "description": "Shows SELinux status",
+      "output": "SELinux status:                 enabled\nSELinuxfs mount:                /sys/fs/selinux\nSELinux root directory:         /etc/selinux\nLoaded policy name:             targeted\nCurrent mode:                   enforcing\nMode from config file:          enforcing"
+    },
+    "getenforce": {
+      "description": "Gets SELinux enforcement mode",
+      "output": "Enforcing"
+    },
+    "cd": {
+      "description": "Changes the current directory",
+      "action": "changeDirectory"
+    },
+    "mkdir": {
+      "description": "Creates new directories",
+      "action": "makeDirectory"
+    },
+    "touch": {
+      "description": "Creates new files or updates timestamps",
+      "action": "createFile"
+    },
+    "rm": {
+      "description": "Removes files and directories",
+      "action": "removeFile"
+    },
+    "history": {
+      "description": "Shows command history",
+      "action": "showHistory"
+    },
+    "theme": {
+      "description": "Toggles between light and dark themes",
+      "action": "toggleTheme"
+    },
+    "sudo": {
+      "description": "Execute commands as another user (simulated)",
+      "output": "[sudo] password for fedora: \nSorry, sudo commands are simulated in WebTerm."
+    },
+    "systemctl": {
+      "description": "Controls systemd services (simulated)",
+      "output": "systemctl: command simulated - service management not available in web terminal"
+    },
+    "flatpak": {
+      "description": "Universal package manager (simulated)",
+      "output": "Flatpak 1.14.4\n\nUsage:\n  flatpak [OPTION…] COMMAND\n\nBuiltin Commands:\n install    Install an application or runtime\n update     Update an installed application or runtime\n uninstall  Uninstall an installed application or runtime\n list       List installed apps and/or runtimes\n info       Show info for installed app or runtime\n run        Run an application"
+    }
+  }
+}

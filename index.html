@@ -24,7 +24,12 @@
             </div>
             <div class="terminal-title">
                 <span class="title-text">WebTerm - Arch Linux</span>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                <div class="terminal-controls">
+                    <select id="distro-selector" class="distro-selector" aria-label="Select Linux Distribution">
+                        <option value="">Loading...</option>
+                    </select>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                </div>
             </div>
             <div class="terminal-info">
                 <span id="session-info" class="session-info">Session: Active</span>

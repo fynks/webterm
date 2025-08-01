@@ -1,0 +1,174 @@
+{
+  "system": {
+    "name": "Debian GNU/Linux",
+    "user": "debian",
+    "host": "debian-stable",
+    "version": "WebTerm v2.0",
+    "commandNotFound": "bash: {cmd}: command not found",
+    "packageManager": "apt"
+  },
+  "filesystem": {
+    "~": ["README.md", "Documents/", "Downloads/", ".bashrc", ".profile", "bin/"],
+    "~/Documents/": ["notes.txt", "projects/", "debian-reference.txt"],
+    "~/Downloads/": ["packages/", "sources.list.backup"],
+    "~/bin/": ["custom-scripts/", "local-tools/"]
+  },
+  "files": {
+    "README.md": "🐧 Welcome to Debian GNU/Linux on WebTerm!\n\n✨ Features:\n- Rock-solid stability\n- APT package management\n- Universal Operating System\n- Strong commitment to free software\n- Extensive hardware support\n\n📚 Getting Started:\n- Type 'help' to see all available commands\n- Type 'apt-cache search' to search packages\n- Type 'dpkg -l' to list installed packages\n- Type 'debian-version' for system info\n\n🎨 This is a simulation of Debian 12 (Bookworm).\nExperience the universal operating system!\n\n💡 Pro tip: Try 'neofetch' to see your Debian system info!",
+    "notes.txt": "📝 Debian User Notes:\n\n🎯 Todo:\n- Update package lists with 'sudo apt update'\n- Upgrade system with 'sudo apt upgrade'\n- Review installed packages\n- Check system stability metrics\n\n💭 Debian Features:\n- Legendary stability\n- Rigorous testing process\n- Strong focus on free software\n- Large package repository\n- Multiple architectures support\n- Conservative release cycle\n\n🚀 Completed:\n✅ Debian stable installation\n✅ WebTerm configuration\n✅ Package management familiarity",
+    ".bashrc": "# ~/.bashrc: executed by bash(1) for non-login shells.\n# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)\n# for examples\n\n# If not running interactively, don't do anything\ncase $- in\n    *i*) ;;\n      *) return;;\nesac\n\n# don't put duplicate lines or lines starting with space in the history.\nHISTCONTROL=ignoreboth\n\n# append to the history file, don't overwrite it\nshopt -s histappend\n\n# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)\nHISTSIZE=1000\nHISTFILESIZE=2000\n\n# check the window size after each command and, if necessary,\n# update the values of LINES and COLUMNS.\nshopt -s checkwinsize\n\n# Debian aliases\nalias ll='ls -alF'\nalias la='ls -A'\nalias l='ls -CF'\n\n# Add an \"alert\" alias for long running commands.  Use like so:\n#   sleep 10; alert\nalias alert='notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e '\\''s/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//'\\'')\"'\n\n# enable programmable completion features (you don't need to enable\n# this, if it's already enabled in /etc/bash.bashrc and /etc/profile\n# sources /etc/bash.bashrc).\nif ! shopt -oq posix; then\n  if [ -f /usr/share/bash-completion/bash_completion ]; then\n    . /usr/share/bash-completion/bash_completion\n  elif [ -f /etc/bash_completion ]; then\n    . /etc/bash_completion\n  fi\nfi",
+    "debian-reference.txt": "🔒 Important Debian Information:\n\n📋 System Details:\n- Distribution: Debian GNU/Linux 12 (Bookworm)\n- Kernel: Linux 6.1.0-10-amd64\n- Init System: systemd\n- Package Manager: APT + dpkg\n- Desktop: Multiple options (GNOME, KDE, Xfce, etc.)\n\n🛠️ Key Commands:\n- sudo apt update && sudo apt upgrade\n- apt-cache search package-name\n- dpkg -l | grep package\n- systemctl status service-name\n- update-alternatives --config editor\n\n📦 Package Sources:\n- Main: DFSG-compliant packages\n- Contrib: DFSG-compliant, dependencies may not be\n- Non-free: Not DFSG-compliant\n\n🌐 Resources:\n- Debian Official: https://www.debian.org\n- Documentation: https://www.debian.org/doc/\n- Package Search: https://packages.debian.org"
+  },
+  "motd": [
+    "🐧 Welcome to Debian GNU/Linux 12 (bookworm) (WebTerm v2.0)",
+    "   ",
+    " ✨ Features: Stability | APT | Free Software | Universal OS",
+    " 📚 Documentation:  https://www.debian.org/doc/",
+    " 💬 Community:      https://www.debian.org/support",
+    "   ",
+    " 💡 Type 'help' for available commands | 'theme' to toggle themes",
+    " 🎯 Try: apt-cache search, dpkg -l, debian-version, neofetch",
+    "   "
+  ],
+  "commands": {
+    "help": {
+      "description": "Shows a list of available commands with descriptions"
+    },
+    "clear": {
+      "description": "Clears the terminal screen"
+    },
+    "ls": {
+      "description": "Lists files and directories in the current location",
+      "output": "📄 README.md   📁 Documents/   📁 Downloads/   📄 .bashrc   📄 .profile   📁 bin/"
+    },
+    "pwd": {
+      "description": "Prints the current working directory path",
+      "output": "/home/debian"
+    },
+    "whoami": {
+      "description": "Displays the current username",
+      "output": "debian"
+    },
+    "uname": {
+      "description": "Shows system information",
+      "output": "Linux"
+    },
+    "uname -a": {
+      "description": "Shows detailed system information",
+      "output": "Linux debian-stable 6.1.0-10-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.38-4 (2023-08-08) x86_64 GNU/Linux"
+    },
+    "uname -r": {
+      "description": "Shows the kernel release version",
+      "output": "6.1.0-10-amd64"
+    },
+    "date": {
+      "description": "Displays current date and time",
+      "action": "showDate"
+    },
+    "uptime": {
+      "description": "Shows how long the system has been running",
+      "output": "up 5 days, 12 hours, 30 minutes, 1 user, load average: 0.08, 0.12, 0.15"
+    },
+    "neofetch": {
+      "description": "Displays a colorful system information screen",
+      "output": [
+        "       _,met$$$$$gg.          debian@debian-stable",
+        "    ,g$$$$$$$$$$$$$$$P.       --------------------",
+        "  ,g$$P\"     \"\"\"Y$$.\"$.      OS: Debian GNU/Linux 12 (bookworm)",
+        " ,$$P'              `$$$.     Host: WebTerm Virtual Machine",
+        "',$$P       ,ggs.     `$$b:   Kernel: 6.1.0-10-amd64",
+        "`d$$'     ,$P\"'   .    $$$    Uptime: 5 days, 12 hours, 30 mins",
+        " $$P      d$'     ,    $$P    Packages: 1847 (dpkg)",
+        " $$:      $$.   -    ,d$$'    Shell: WebTerm v2.0",
+        " $$;      Y$b._   _,d$P'      Resolution: 1920x1080",
+        " Y$$.    `.`\"Y$$$$P\"'         DE: Variable",
+        " `$$b      \"-.__              WM: Variable",
+        "  `Y$$                        Theme: Default",
+        "   `Y$$.                      Icons: Default",
+        "     `$$b.                    Terminal: WebTerm",
+        "       `Y$$b.                 CPU: Simulated x86_64",
+        "         `\"Y$b._             Memory: Virtual",
+        "             `\"\"\"\""
+      ]
+    },
+    "debian-version": {
+      "description": "Shows Debian version information",
+      "output": "Debian GNU/Linux 12 (bookworm)\nKernel: 6.1.0-10-amd64\nArchitecture: amd64\nInit: systemd"
+    },
+    "lsb_release": {
+      "description": "Shows Debian release information",
+      "output": "Distributor ID: Debian\nDescription: Debian GNU/Linux 12 (bookworm)\nRelease: 12\nCodename: bookworm"
+    },
+    "lsb_release -a": {
+      "description": "Shows detailed Debian release information",
+      "output": "No LSB modules are available.\nDistributor ID: Debian\nDescription: Debian GNU/Linux 12 (bookworm)\nRelease: 12\nCodename: bookworm"
+    },
+    "echo": {
+      "description": "Displays the specified text or variables"
+    },
+    "cat": {
+      "description": "Displays the contents of files",
+      "error": "cat: missing file operand"
+    },
+    "apt": {
+      "description": "Debian package manager (simulated)",
+      "output": "apt 2.6.1 (amd64)\nUsage: apt [options] command\n\nCommands:\n  update - update list of available packages\n  upgrade - upgrade the system\n  install - install packages\n  remove - remove packages\n  search - search in package descriptions\n  show - show package details"
+    },
+    "apt update": {
+      "description": "Updates package lists",
+      "output": "Hit:1 http://deb.debian.org/debian bookworm InRelease\nGet:2 http://security.debian.org/debian-security bookworm-security InRelease [48.0 kB]\nGet:3 http://deb.debian.org/debian bookworm-updates InRelease [52.1 kB]\nFetched 100 kB in 2s (50.0 kB/s)\nReading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\nAll packages are up to date."
+    },
+    "apt-cache": {
+      "description": "APT cache manipulation tool",
+      "output": "apt-cache 2.6.1 (amd64)\nUsage: apt-cache [options] command\n\nCommands:\n  search - search for packages\n  show - show package information\n  policy - show policy settings"
+    },
+    "apt-cache search": {
+      "description": "Searches for packages in the cache",
+      "output": "firefox-esr - Mozilla Firefox web browser - Extended Support Release\nvim - Vi IMproved - enhanced vi editor\ngit - fast, scalable, distributed revision control system\ncode - Visual Studio Code\nnano - small, friendly text editor inspired by Pico"
+    },
+    "dpkg": {
+      "description": "Debian package manager (low-level)",
+      "output": "Debian `dpkg' package management program version 1.21.22 (amd64).\nUsage: dpkg [<option> ...] <command>\n\nCommands:\n  -l|--list [<pattern> ...]        List packages matching given pattern\n  -i|--install <.deb file name>... Install the package\n  -r|--remove <package> ...        Remove the package"
+    },
+    "dpkg -l": {
+      "description": "Lists all installed packages",
+      "output": "Desired=Unknown/Install/Remove/Purge/Hold\n| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend\n|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)\n||/ Name                Version      Architecture Description\n+++-===================-============-============-=================================\nii  bash               5.2.15-2+b2  amd64        GNU Bourne Again SHell\nii  coreutils          9.1-1        amd64        GNU core utilities\nii  firefox-esr        115.2.0esr-1 amd64        Mozilla Firefox web browser\nii  git                1:2.39.2-1.1 amd64        fast, scalable, distributed revision control system\nii  vim                2:9.0.1378-2 amd64        Vi IMproved - enhanced vi editor"
+    },
+    "cd": {
+      "description": "Changes the current directory",
+      "action": "changeDirectory"
+    },
+    "mkdir": {
+      "description": "Creates new directories",
+      "action": "makeDirectory"
+    },
+    "touch": {
+      "description": "Creates new files or updates timestamps",
+      "action": "createFile"
+    },
+    "rm": {
+      "description": "Removes files and directories",
+      "action": "removeFile"
+    },
+    "history": {
+      "description": "Shows command history",
+      "action": "showHistory"
+    },
+    "theme": {
+      "description": "Toggles between light and dark themes",
+      "action": "toggleTheme"
+    },
+    "sudo": {
+      "description": "Execute commands as another user (simulated)",
+      "output": "[sudo] password for debian: \nSorry, sudo commands are simulated in WebTerm."
+    },
+    "systemctl": {
+      "description": "Controls systemd services (simulated)",
+      "output": "systemctl: command simulated - service management not available in web terminal"
+    },
+    "update-alternatives": {
+      "description": "Maintain symbolic links determining default commands",
+      "output": "update-alternatives: command simulated - alternatives management not available in web terminal"
+    }
+  }
+}

@@ -153,6 +153,35 @@ body {
     font-size: var(--font-size-sm);
 }
 
+.terminal-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.distro-selector {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.distro-selector:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+}
+
+.distro-selector:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+}
+
 .theme-toggle {
     background: transparent;
     border: 1px solid var(--border-color);

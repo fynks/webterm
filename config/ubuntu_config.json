@@ -1,0 +1,174 @@
+{
+  "system": {
+    "name": "Ubuntu",
+    "user": "ubuntu",
+    "host": "ubuntu-desktop",
+    "version": "WebTerm v2.0",
+    "commandNotFound": "bash: {cmd}: command not found",
+    "packageManager": "apt"
+  },
+  "filesystem": {
+    "~": ["README.md", "Documents/", "Downloads/", "Desktop/", ".bashrc", "snap/"],
+    "~/Documents/": ["notes.txt", "projects/", "important.txt"],
+    "~/Downloads/": ["firefox-installer.deb", "vscode.deb"],
+    "~/Desktop/": ["Ubuntu_Desktop.txt", "shortcuts.desktop"]
+  },
+  "files": {
+    "README.md": "🐧 Welcome to Ubuntu on WebTerm!\n\n✨ Features:\n- APT package management simulation\n- Unity desktop environment references\n- Ubuntu-specific commands and tools\n- Snap package support simulation\n\n📚 Getting Started:\n- Type 'help' to see all available commands\n- Type 'apt list' to see available packages\n- Type 'snap list' to see installed snaps\n- Type 'ubuntu-bug' for bug reporting info\n\n🎨 This is a simulation of Ubuntu 22.04 LTS.\nExplore the filesystem and try Ubuntu-specific commands!\n\n💡 Pro tip: Try 'neofetch' to see your Ubuntu system info!",
+    "notes.txt": "📝 Ubuntu User Notes:\n\n🎯 Todo:\n- Update system with 'sudo apt update'\n- Install development tools\n- Configure desktop environment\n- Set up workspace preferences\n\n💭 Ubuntu Features:\n- LTS (Long Term Support) releases\n- Unity/GNOME desktop environment\n- APT package manager\n- Snap universal packages\n- Strong community support\n\n🚀 Completed:\n✅ Initial Ubuntu setup\n✅ WebTerm configuration\n✅ Basic command familiarity",
+    ".bashrc": "# ~/.bashrc: executed by bash(1) for non-login shells.\n\n# If not running interactively, don't do anything\ncase $- in\n    *i*) ;;\n      *) return;;\nesac\n\n# History settings\nHISTCONTROL=ignoreboth\nHISTSIZE=1000\nHISTFILESIZE=2000\n\n# Ubuntu aliases\nalias ll='ls -alF'\nalias la='ls -A'\nalias l='ls -CF'\nalias grep='grep --color=auto'\nalias fgrep='fgrep --color=auto'\nalias egrep='egrep --color=auto'\n\n# Ubuntu-specific aliases\nalias apt-search='apt search'\nalias apt-show='apt show'\n\n# Enable programmable completion features\nif ! shopt -oq posix; then\n  if [ -f /usr/share/bash-completion/bash_completion ]; then\n    . /usr/share/bash-completion/bash_completion\n  elif [ -f /etc/bash_completion ]; then\n    . /etc/bash_completion\n  fi\nfi",
+    "important.txt": "🔒 Important Ubuntu Information:\n\n📋 System Details:\n- Distribution: Ubuntu 22.04 LTS (Jammy Jellyfish)\n- Kernel: Linux 5.15.0-generic\n- Desktop: GNOME 42\n- Package Manager: APT + Snap\n\n🛠️ Key Commands:\n- sudo apt update && sudo apt upgrade\n- sudo apt install package-name\n- snap install package-name\n- systemctl status service-name\n\n🌐 Resources:\n- Ubuntu Official: https://ubuntu.com\n- Community Help: https://askubuntu.com\n- Documentation: https://help.ubuntu.com"
+  },
+  "motd": [
+    "🐧 Welcome to Ubuntu 22.04.3 LTS (WebTerm v2.0)",
+    "   ",
+    " ✨ Features: APT | Snap | GNOME | Community Support",
+    " 📚 Documentation:  https://help.ubuntu.com/",
+    " 💬 Community:      https://askubuntu.com/",
+    "   ",
+    " 💡 Type 'help' for available commands | 'theme' to toggle themes",
+    " 🎯 Try: apt list, snap list, ubuntu-version, neofetch",
+    "   "
+  ],
+  "commands": {
+    "help": {
+      "description": "Shows a list of available commands with descriptions"
+    },
+    "clear": {
+      "description": "Clears the terminal screen"
+    },
+    "ls": {
+      "description": "Lists files and directories in the current location",
+      "output": "📄 README.md   📁 Documents/   📁 Downloads/   📁 Desktop/   📄 .bashrc   📁 snap/"
+    },
+    "pwd": {
+      "description": "Prints the current working directory path",
+      "output": "/home/ubuntu"
+    },
+    "whoami": {
+      "description": "Displays the current username",
+      "output": "ubuntu"
+    },
+    "uname": {
+      "description": "Shows system information",
+      "output": "Linux"
+    },
+    "uname -a": {
+      "description": "Shows detailed system information",
+      "output": "Linux ubuntu-desktop 5.15.0-78-generic #85-Ubuntu SMP Fri Jul 7 15:25:09 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux"
+    },
+    "uname -r": {
+      "description": "Shows the kernel release version",
+      "output": "5.15.0-78-generic"
+    },
+    "date": {
+      "description": "Displays current date and time",
+      "action": "showDate"
+    },
+    "uptime": {
+      "description": "Shows how long the system has been running",
+      "output": "up 1 day, 2 hours, 15 minutes, 1 user, load average: 0.15, 0.20, 0.18"
+    },
+    "neofetch": {
+      "description": "Displays a colorful system information screen",
+      "output": [
+        "         _,met$$$$$gg.          ubuntu@ubuntu-desktop",
+        "      ,g$$$$$$$$$$$$$$$P.       ---------------------",
+        "    ,g$$P\"     \"\"\"Y$$.\"$.      OS: Ubuntu 22.04.3 LTS x86_64",
+        "   ,$$P'              `$$$.     Host: WebTerm Virtual Machine",
+        "  ',$$P       ,ggs.     `$$b:   Kernel: 5.15.0-78-generic",
+        "  `d$$'     ,$P\"'   .    $$$    Uptime: 1 day, 2 hours, 15 mins",
+        "   $$P      d$'     ,    $$P    Packages: 2743 (dpkg), 23 (snap)",
+        "   $$:      $$.   -    ,d$$'    Shell: WebTerm v2.0",
+        "   $$;      Y$b._   _,d$P'      Resolution: 1920x1080",
+        "   Y$$.    `.`\"Y$$$$P\"'         DE: GNOME 42.5",
+        "   `$$b      \"-.__              WM: Mutter",
+        "    `Y$$                        Theme: Yaru [GTK3]",
+        "     `Y$$.                      Icons: Yaru [GTK3]",
+        "       `$$b.                    Terminal: WebTerm",
+        "         `Y$$b.                 CPU: Simulated x86_64",
+        "            `\"Y$b._             Memory: Virtual",
+        "                `\"\"\"\""
+      ]
+    },
+    "lsb_release": {
+      "description": "Shows Ubuntu release information",
+      "output": "Distributor ID: Ubuntu\nDescription: Ubuntu 22.04.3 LTS\nRelease: 22.04\nCodename: jammy"
+    },
+    "lsb_release -a": {
+      "description": "Shows detailed Ubuntu release information",
+      "output": "No LSB modules are available.\nDistributor ID: Ubuntu\nDescription: Ubuntu 22.04.3 LTS\nRelease: 22.04\nCodename: jammy"
+    },
+    "ubuntu-version": {
+      "description": "Shows Ubuntu version information",
+      "output": "Ubuntu 22.04.3 LTS (Jammy Jellyfish)\nKernel: 5.15.0-78-generic\nDesktop: GNOME 42.5"
+    },
+    "echo": {
+      "description": "Displays the specified text or variables"
+    },
+    "cat": {
+      "description": "Displays the contents of files",
+      "error": "cat: missing file operand"
+    },
+    "apt": {
+      "description": "Ubuntu package manager (simulated)",
+      "output": "apt 2.4.9 (amd64)\nUsage: apt [options] command\n\nCommands:\n  update - update list of available packages\n  upgrade - upgrade the system\n  install - install packages\n  remove - remove packages\n  search - search in package descriptions\n  list - list packages based on package names"
+    },
+    "apt update": {
+      "description": "Updates package lists",
+      "output": "Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease\nGet:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]\nReading package lists... Done\nBuilding dependency tree... Done\nAll packages are up to date."
+    },
+    "apt list": {
+      "description": "Lists available packages",
+      "output": "Listing... Done\nfirefox/jammy-updates,jammy-security 117.0+build2-0ubuntu1 amd64\ncode/stable 1.81.1-1691620686 amd64\nvim/jammy,jammy 2:8.2.3458-2ubuntu2.2 amd64\ngit/jammy-updates 1:2.34.1-1ubuntu1.9 amd64\nnano/jammy 6.2-1 amd64"
+    },
+    "snap": {
+      "description": "Ubuntu snap package manager (simulated)",
+      "output": "snap 2.60.3\nUsage: snap <command> [<options>...]\n\nCommands:\n  install - install snaps\n  remove - remove snaps\n  list - list installed snaps\n  find - find packages to install"
+    },
+    "snap list": {
+      "description": "Lists installed snap packages",
+      "output": "Name               Version                     Rev    Tracking         Publisher   Notes\ncore20             20230801                    2015   latest/stable    canonical✓  base\nfirefox            117.0-1                     2987   latest/stable    mozilla✓    -\ngnome-3-38-2004    0+git.6f39565               119    latest/stable    canonical✓  -\ngtk-common-themes  0.1-81-g442e511             1535   latest/stable    canonical✓  -\ncode               c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5  134    latest/stable    microsoft✓  classic"
+    },
+    "ubuntu-bug": {
+      "description": "Ubuntu bug reporting tool (simulated)",
+      "output": "ubuntu-bug: This tool helps you file bug reports.\nUsage: ubuntu-bug [package-name]\n\nTo report a bug, visit: https://bugs.launchpad.net/ubuntu\nOr use: ubuntu-bug package-name"
+    },
+    "cd": {
+      "description": "Changes the current directory",
+      "action": "changeDirectory"
+    },
+    "mkdir": {
+      "description": "Creates new directories",
+      "action": "makeDirectory"
+    },
+    "touch": {
+      "description": "Creates new files or updates timestamps",
+      "action": "createFile"
+    },
+    "rm": {
+      "description": "Removes files and directories",
+      "action": "removeFile"
+    },
+    "history": {
+      "description": "Shows command history",
+      "action": "showHistory"
+    },
+    "theme": {
+      "description": "Toggles between light and dark themes",
+      "action": "toggleTheme"
+    },
+    "sudo": {
+      "description": "Execute commands as another user (simulated)",
+      "output": "[sudo] password for ubuntu: \nSorry, sudo commands are simulated in WebTerm."
+    },
+    "systemctl": {
+      "description": "Controls systemd services (simulated)",
+      "output": "systemctl: command simulated - service management not available in web terminal"
+    },
+    "service": {
+      "description": "Controls system services (simulated)",
+      "output": "service: command simulated - service management not available in web terminal"
+    }
+  }
+}

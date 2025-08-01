@@ -1,0 +1,29 @@
+{
+  "defaultDistro": "arch",
+  "distributions": {
+    "arch": {
+      "name": "Arch Linux",
+      "configFile": "config/arch_config.json",
+      "icon": "🐧",
+      "description": "A lightweight and flexible Linux distribution"
+    },
+    "ubuntu": {
+      "name": "Ubuntu",
+      "configFile": "config/ubuntu_config.json", 
+      "icon": "🟠",
+      "description": "Popular, user-friendly Linux distribution"
+    },
+    "fedora": {
+      "name": "Fedora Linux",
+      "configFile": "config/fedora_config.json",
+      "icon": "🔵", 
+      "description": "Cutting-edge Linux with latest software"
+    },
+    "debian": {
+      "name": "Debian GNU/Linux",
+      "configFile": "config/debian_config.json",
+      "icon": "🔴",
+      "description": "The universal operating system"
+    }
+  }
+}

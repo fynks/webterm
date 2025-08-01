@@ -1,12 +1,14 @@
 /**
  * Modern Web Terminal Emulator
  * Features: Auto-completion, command suggestions, theme switching, file system simulation
+ * Dynamic configuration loading for multiple Linux distributions
  */
 
 class WebTerminal {
-    constructor(configUrl) {
+    constructor() {
         // Core properties
-        this.configUrl = configUrl;
+        this.distroManager = {};
+        this.currentDistro = null;
         this.config = {};
         this.commandHistory = [];
         this.historyIndex = 0;
@@ -27,29 +29,8 @@ class WebTerminal {
         // Debounced functions
         this.debouncedShowSuggestions = this.debounce(this.showSuggestions.bind(this), 300);
         
-        // File system simulation
-        this.fileSystem = {
-            '/home/user': {
-                type: 'directory',
-                contents: ['README.md', 'notes.txt', 'projects'],
-                parent: '/home'
-            },
-            '/home/user/projects': {
-                type: 'directory',
-                contents: ['secret-project', 'old-stuff'],
-                parent: '/home/user'
-            },
-            '/home/user/README.md': {
-                type: 'file',
-                content: 'Welcome to the interactive web terminal!\n\n- Type \'help\' to see available commands.\n- This is a simulation, not a real shell.\n- You can create your own config file for other Linux distros.',
-                parent: '/home/user'
-            },
-            '/home/user/notes.txt': {
-                type: 'file',
-                content: 'Todo:\n- Learn more about Arch Linux.\n- Customize this terminal further.',
-                parent: '/home/user'
-            }
-        };
+        // File system simulation (will be loaded from config)
+        this.fileSystem = {};
         
         // Bind methods
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -70,6 +51,7 @@ class WebTerminal {
             suggestionsPanel: document.getElementById('suggestions-panel'),
             suggestionsList: document.getElementById('suggestions-list'),
             themeToggle: document.getElementById('theme-toggle'),
+            distroSelector: document.getElementById('distro-selector'),
             currentPath: document.getElementById('current-path'),
             commandCount: document.getElementById('command-count'),
             uptime: document.getElementById('uptime'),
@@ -83,7 +65,27 @@ class WebTerminal {
      */
     async init() {
         try {
-            this.showLoadingMessage('Loading configuration...');
+            this.showLoadingMessage('Loading distribution manager...');
+            await this.loadDistroManager();
+            
+            // Check for URL parameter to override distro
+            const urlParams = new URLSearchParams(window.location.search);
+            const distroParam = urlParams.get('distro');
+            
+            // Get saved distro preference or use URL param or default
+            const savedDistro = localStorage.getItem('terminal-distro');
+            this.currentDistro = distroParam || savedDistro || this.distroManager.defaultDistro;
+            
+            // Validate distro exists
+            if (!this.distroManager.distributions[this.currentDistro]) {
+                console.warn(`Unknown distro: ${this.currentDistro}, falling back to default`);
+                this.currentDistro = this.distroManager.defaultDistro;
+            }
+            
+            // Save distro preference
+            localStorage.setItem('terminal-distro', this.currentDistro);
+            
+            this.showLoadingMessage(`Loading ${this.distroManager.distributions[this.currentDistro].name}...`);
             await this.loadConfig();
             
             this.showLoadingMessage('Setting up environment...');
@@ -112,24 +114,146 @@ class WebTerminal {
     }
 
     /**
-     * Load configuration from JSON file
+     * Load distribution manager configuration
+     */
+    async loadDistroManager() {
+        const response = await fetch('config/distro_manager.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        this.distroManager = await response.json();
+    }
+
+    /**
+     * Load configuration from JSON file based on current distro
      */
     async loadConfig() {
-        const response = await fetch(this.configUrl);
+        const distroConfig = this.distroManager.distributions[this.currentDistro];
+        const response = await fetch(distroConfig.configFile);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         this.config = await response.json();
         
+        // Set up filesystem from config
+        this.setupFileSystemFromConfig();
+        
+        // Set current path based on user
+        this.currentPath = `/home/${this.config.system.user}`;
+        
         // Enhance config with additional commands
         this.enhanceConfig();
+        
+        // Update UI elements with distro-specific information
+        this.updateUIForDistro();
+    }
+
+    /**
+     * Set up file system from configuration
+     */
+    setupFileSystemFromConfig() {
+        this.fileSystem = {};
+        const user = this.config.system.user;
+        
+        // Create file system structure from config
+        for (const [path, contents] of Object.entries(this.config.filesystem)) {
+            const fullPath = path.replace('~', `/home/${user}`);
+            
+            this.fileSystem[fullPath] = {
+                type: 'directory',
+                contents: contents.filter(item => !item.endsWith('/')).map(item => item.replace('/', '')),
+                parent: this.getParentPath(fullPath)
+            };
+            
+            // Create subdirectories
+            contents.filter(item => item.endsWith('/')).forEach(dir => {
+                const dirName = dir.replace('/', '');
+                const dirPath = `${fullPath}/${dirName}`;
+                this.fileSystem[dirPath] = {
+                    type: 'directory',
+                    contents: [],
+                    parent: fullPath
+                };
+            });
+        }
+        
+        // Create files from config
+        for (const [filename, content] of Object.entries(this.config.files)) {
+            const filePath = `/home/${user}/${filename}`;
+            this.fileSystem[filePath] = {
+                type: 'file',
+                content: content,
+                parent: `/home/${user}`
+            };
+        }
+    }
+
+    /**
+     * Get parent path for a given path
+     */
+    getParentPath(path) {
+        const parts = path.split('/').filter(part => part !== '');
+        if (parts.length <= 1) return '/';
+        return '/' + parts.slice(0, -1).join('/');
+    }
+
+    /**
+     * Update UI elements for the current distribution
+     */
+    updateUIForDistro() {
+        const distroInfo = this.distroManager.distributions[this.currentDistro];
+        
+        // Update title
+        document.title = `WebTerm - ${distroInfo.name}`;
+        const titleElement = document.querySelector('.title-text');
+        if (titleElement) {
+            titleElement.textContent = `WebTerm - ${distroInfo.name}`;
+        }
+        
+        // Update current path display
+        if (this.elements.currentPath) {
+            this.elements.currentPath.textContent = this.currentPath;
+        }
+        
+        // Populate and update distro selector
+        this.populateDistroSelector();
+    }
+
+    /**
+     * Populate the distribution selector dropdown
+     */
+    populateDistroSelector() {
+        if (!this.elements.distroSelector) return;
+        
+        this.elements.distroSelector.innerHTML = '';
+        
+        for (const [key, distro] of Object.entries(this.distroManager.distributions)) {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = `${distro.icon} ${distro.name}`;
+            option.selected = key === this.currentDistro;
+            this.elements.distroSelector.appendChild(option);
+        }
     }
 
     /**
      * Enhance the configuration with additional commands and features
      */
     enhanceConfig() {
-        const additionalCommands = {
+        // Add distro switching command
+        this.config.commands['switch-distro'] = {
+            description: 'Switch to a different Linux distribution',
+            action: 'switchDistro'
+        };
+        
+        // Add list distros command
+        this.config.commands['list-distros'] = {
+            description: 'List available Linux distributions',
+            action: 'listDistros'
+        };
+        
+        // Ensure core commands exist with proper actions
+        const coreCommands = {
             'cd': {
                 description: 'Change the current directory',
                 action: 'changeDirectory'
@@ -145,10 +269,6 @@ class WebTerminal {
             'rm': {
                 description: 'Remove files or directories',
                 action: 'removeFile'
-            },
-            'whoami': {
-                description: 'Print the current username',
-                output: this.config.system.user
             },
             'date': {
                 description: 'Display the current date and time',
@@ -168,9 +288,32 @@ class WebTerminal {
             }
         };
 
-        this.config.commands = { ...this.config.commands, ...additionalCommands };
+        // Merge core commands, but don't override existing config commands
+        for (const [cmd, info] of Object.entries(coreCommands)) {
+            if (!this.config.commands[cmd]) {
+                this.config.commands[cmd] = info;
+            }
+        }
+        
+        // Update dynamic commands with current config values
+        if (this.config.commands['whoami']) {
+            this.config.commands['whoami'].output = this.config.system.user;
+        }
+        if (this.config.commands['pwd']) {
+            this.config.commands['pwd'].output = this.currentPath;
+        }
     }
 
+    /**
+     * Render the prompt based on current config
+     */
+    renderPrompt() {
+        const user = this.config.system?.user || 'user';
+        const host = this.config.system?.host || 'localhost';
+        const pathDisplay = this.currentPath.replace(`/home/${user}`, '~');
+        
+        this.elements.prompt.innerHTML = `<span class="prompt-user">${user}</span><span class="prompt-separator">@</span><span class="prompt-host">${host}</span><span class="prompt-separator">:</span><span class="prompt-path">${pathDisplay}</span><span class="prompt-symbol">$</span> `;
+    }
     /**
      * Set up event listeners
      */
@@ -188,6 +331,16 @@ class WebTerminal {
         this.elements.themeToggle.addEventListener('click', () => {
             this.toggleTheme();
         });
+
+        // Distribution selector
+        if (this.elements.distroSelector) {
+            this.elements.distroSelector.addEventListener('change', (e) => {
+                const selectedDistro = e.target.value;
+                if (selectedDistro && selectedDistro !== this.currentDistro) {
+                    this.switchDistro(selectedDistro);
+                }
+            });
+        }
 
         // Window controls (cosmetic)
         document.querySelectorAll('.control-btn').forEach(btn => {
@@ -354,6 +507,12 @@ class WebTerminal {
                 case 'removeFile':
                     this.removeFile(args[0]);
                     return;
+                case 'switchDistro':
+                    this.switchDistro(args[0]);
+                    return;
+                case 'listDistros':
+                    this.listDistros();
+                    return;
             }
         }
 
@@ -404,6 +563,62 @@ class WebTerminal {
         this.renderLine('  • Use Tab for auto-completion');
         this.renderLine('  • Use ↑/↓ arrows for command history');
         this.renderLine('  • Type "theme" to toggle dark/light mode');
+    }
+
+    /**
+     * List available distributions
+     */
+    listDistros() {
+        this.renderLine('🐧 Available Linux Distributions:', 'output-success');
+        this.renderLine('─'.repeat(50));
+        
+        for (const [key, distro] of Object.entries(this.distroManager.distributions)) {
+            const current = key === this.currentDistro ? ' (current)' : '';
+            const status = key === this.currentDistro ? 'output-success' : '';
+            this.renderLine(`  ${distro.icon} ${distro.name}${current}`, status);
+            this.renderLine(`     ${distro.description}`);
+            this.renderLine(`     Command: switch-distro ${key}`);
+            this.renderLine('');
+        }
+        
+        this.renderLine('💡 Usage: switch-distro <distro-name>');
+        this.renderLine('   Example: switch-distro ubuntu');
+    }
+
+    /**
+     * Switch to a different distribution
+     */
+    switchDistro(distroName) {
+        if (!distroName) {
+            this.renderLine('❌ Usage: switch-distro <distro-name>', 'output-error');
+            this.renderLine('💡 Available distros: ' + Object.keys(this.distroManager.distributions).join(', '));
+            return;
+        }
+
+        if (!this.distroManager.distributions[distroName]) {
+            this.renderLine(`❌ Unknown distribution: ${distroName}`, 'output-error');
+            this.renderLine('💡 Use "list-distros" to see available options');
+            return;
+        }
+
+        if (distroName === this.currentDistro) {
+            this.renderLine(`✅ Already using ${this.distroManager.distributions[distroName].name}`, 'output-success');
+            return;
+        }
+
+        this.renderLine(`🔄 Switching to ${this.distroManager.distributions[distroName].name}...`, 'output-success');
+        
+        // Save preference and reload
+        localStorage.setItem('terminal-distro', distroName);
+        
+        // Add URL parameter and reload
+        const url = new URL(window.location);
+        url.searchParams.set('distro', distroName);
+        window.history.pushState({}, '', url);
+        
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     }
 
     /**
@@ -728,6 +943,13 @@ class WebTerminal {
     displayMotd() {
         if (!this.config.motd) return;
         this.config.motd.forEach(line => this.renderLine(line));
+        
+        // Add distribution switching info
+        this.renderLine('');
+        this.renderLine('💡 Distribution Commands:', 'output-success');
+        this.renderLine('   • list-distros     - Show available distributions');
+        this.renderLine('   • switch-distro    - Switch to different distribution');
+        this.renderLine('   • Use dropdown in header for quick switching');
         this.renderLine(''); // Add spacing
     }
 
@@ -750,15 +972,18 @@ class WebTerminal {
      */
     renderNewPromptLine() {
         const { user, host } = this.config.system;
-        const pathDisplay = this.currentPath === '/home/user' ? '~' : this.currentPath;
-        this.elements.prompt.textContent = `[${user}@${host} ${pathDisplay}]$`;
+        const userHomePath = `/home/${user}`;
+        const pathDisplay = this.currentPath === userHomePath ? '~' : this.currentPath.replace(userHomePath, '~');
+        this.elements.prompt.innerHTML = `<span class="prompt-user">${user}</span><span class="prompt-separator">@</span><span class="prompt-host">${host}</span><span class="prompt-separator">:</span><span class="prompt-path">${pathDisplay}</span><span class="prompt-symbol">$</span> `;
     }
 
     /**
      * Update current path display
      */
     updatePath() {
-        const pathDisplay = this.currentPath === '/home/user' ? '~' : this.currentPath;
+        const { user } = this.config.system;
+        const userHomePath = `/home/${user}`;
+        const pathDisplay = this.currentPath === userHomePath ? '~' : this.currentPath.replace(userHomePath, '~');
         this.elements.currentPath.textContent = pathDisplay;
         this.renderNewPromptLine();
     }
@@ -881,7 +1106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.setAttribute('data-theme', savedTheme);
     
     // Create and initialize terminal
-    const terminal = new WebTerminal('config/arch_config.json');
+    const terminal = new WebTerminal();
     terminal.currentTheme = savedTheme;
     
     // Make terminal globally accessible for debugging
