@@ -881,7 +881,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.setAttribute('data-theme', savedTheme);
     
     // Create and initialize terminal
-    const terminal = new WebTerminal('arch_config.json');
+    const terminal = new WebTerminal('config/arch_config.json');
     terminal.currentTheme = savedTheme;
     
     // Make terminal globally accessible for debugging
