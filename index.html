@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebTerm - Arch Linux Terminal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>">
+    <meta name="description" content="Interactive Arch Linux web terminal simulator">
+    <meta name="theme-color" content="#1e1e2e">
+</head>
+<body>
+    <div class="container">
+        <!-- Terminal Header -->
+        <div class="terminal-header">
+            <div class="window-controls">
+                <button class="control-btn close" aria-label="Close"></button>
+                <button class="control-btn minimize" aria-label="Minimize"></button>
+                <button class="control-btn maximize" aria-label="Maximize"></button>
+            </div>
+            <div class="terminal-title">
+                <span class="title-text">WebTerm - Arch Linux</span>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+            </div>
+            <div class="terminal-info">
+                <span id="session-info" class="session-info">Session: Active</span>
+            </div>
+        </div>
+
+        <!-- Main Terminal -->
+        <div id="terminal" class="terminal" role="log" aria-live="polite" aria-label="Terminal output">
+            <div id="terminal-output" class="terminal-output"></div>
+            <div class="terminal-input-line">
+                <span id="prompt" class="prompt" aria-hidden="true"></span>
+                <div class="input-container">
+                    <input 
+                        type="text" 
+                        id="command-input" 
+                        class="command-input" 
+                        autocomplete="off" 
+                        autocorrect="off" 
+                        autocapitalize="off" 
+                        spellcheck="false" 
+                        autofocus
+                        role="textbox"
+                        aria-label="Command input"
+                        aria-describedby="suggestions"
+                    >
+                    <div id="suggestions" class="suggestions" aria-live="polite"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Command Suggestions Panel -->
+        <div id="suggestions-panel" class="suggestions-panel" aria-hidden="true">
+            <div class="suggestions-header">Available Commands</div>
+            <div id="suggestions-list" class="suggestions-list"></div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="current-path" class="current-path">/home/user</span>
+            </div>
+            <div class="status-right">
+                <span id="command-count" class="command-count">Commands: 0</span>
+                <span class="separator">|</span>
+                <span id="uptime" class="uptime">Uptime: 0s</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Initializing WebTerm...</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

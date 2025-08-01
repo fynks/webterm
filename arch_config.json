@@ -1,0 +1,250 @@
+{
+  "system": {
+    "name": "Arch Linux",
+    "user": "user",
+    "host": "arch-pc",
+    "version": "WebTerm v2.0",
+    "commandNotFound": "bash: {cmd}: command not found"
+  },
+  "filesystem": {
+    "~": ["README.md", "projects/", "notes.txt", ".bashrc", "Desktop/"],
+    "~/projects/": ["secret-project/", "old-stuff/", "web-terminal/"],
+    "~/Desktop/": ["shortcuts.txt", "wallpaper.jpg"]
+  },
+  "files": {
+    "README.md": "🐧 Welcome to the Interactive Web Terminal!\n\n✨ Features:\n- Auto-completion with Tab\n- Command history with ↑/↓ arrows\n- Theme switching (type 'theme')\n- File system simulation\n- Modern UI with glassmorphism effects\n\n📚 Getting Started:\n- Type 'help' to see all available commands\n- Type 'ls' to list files in current directory\n- Type 'cat filename' to read file contents\n- Type 'cd directory' to change directories\n\n🎨 This is a simulation, not a real shell.\nYou can create your own config file for other Linux distros.\n\n💡 Pro tip: Try typing 'neofetch' for system info!",
+    "notes.txt": "📝 Personal Notes:\n\n🎯 Todo:\n- Learn more about Arch Linux\n- Customize this terminal further\n- Explore the filesystem simulation\n- Try all the available commands\n\n💭 Ideas:\n- Add more file system commands\n- Implement tab completion for file names\n- Add syntax highlighting\n- Create custom themes\n\n🚀 Completed:\n✅ Set up basic terminal functionality\n✅ Added command history\n✅ Implemented auto-suggestions",
+    ".bashrc": "# ~/.bashrc\n\n# If not running interactively, don't do anything\n[[ $- != *i* ]] && return\n\n# Aliases\nalias ls='ls --color=auto'\nalias ll='ls -alF'\nalias la='ls -A'\nalias l='ls -CF'\nalias grep='grep --color=auto'\n\n# Custom prompt\nPS1='[\\u@\\h \\W]\\$ '\n\n# History settings\nHISTSIZE=1000\nHISTFILESIZE=2000\n\n# Enable programmable completion\nif ! shopt -oq posix; then\n  if [ -f /usr/share/bash-completion/bash_completion ]; then\n    . /usr/share/bash-completion/bash_completion\n  fi\nfi",
+    "shortcuts.txt": "🔧 Useful Keyboard Shortcuts:\n\n📌 Terminal Navigation:\n- Ctrl+C: Interrupt current command\n- Tab: Auto-complete commands\n- ↑/↓: Navigate command history\n- Escape: Close suggestions\n\n🎨 Interface:\n- Click theme button (🌙/☀️) to toggle themes\n- Click anywhere in terminal to focus input\n- Use window controls for simulated actions\n\n💡 Pro Tips:\n- Type partial command and press Tab for completion\n- Use 'clear' to clean up the terminal\n- Check 'history' to see your command history"
+  },
+  "motd": [
+    "🐧 Welcome to Arch Linux (WebTerm v2.0)",
+    "   ",
+    " ✨ Features: Auto-completion | History | Themes | File System",
+    " 📚 Documentation:  https://wiki.archlinux.org/",
+    " 💬 Community:      https://bbs.archlinux.org/",
+    "   ",
+    " 💡 Type 'help' for available commands | 'theme' to toggle themes",
+    " 🎯 Try: ls, cat README.md, cd projects, neofetch",
+    "   "
+  ],
+  "commands": {
+    "help": {
+      "description": "Shows a list of available commands with descriptions"
+    },
+    "clear": {
+      "description": "Clears the terminal screen"
+    },
+    "ls": {
+      "description": "Lists files and directories in the current location",
+      "output": "📄 README.md   📄 notes.txt   📁 projects/   📄 .bashrc   📁 Desktop/"
+    },
+    "pwd": {
+      "description": "Prints the current working directory path",
+      "output": "/home/user"
+    },
+    "whoami": {
+      "description": "Displays the current username",
+      "output": "user"
+    },
+    "uname": {
+      "description": "Shows system information (try 'uname -a' for detailed info)",
+      "output": "Linux"
+    },
+    "uname -a": {
+      "description": "Shows detailed system information",
+      "output": "Linux arch-pc 6.5.9-arch1-1 #1 SMP PREEMPT_DYNAMIC Sat Oct 28 13:58:31 UTC 2023 x86_64 GNU/Linux"
+    },
+    "uname -r": {
+      "description": "Shows the kernel release version",
+      "output": "6.5.9-arch1-1"
+    },
+    "date": {
+      "description": "Displays current date and time",
+      "action": "showDate"
+    },
+    "uptime": {
+      "description": "Shows how long the system has been running",
+      "output": "up 42 minutes, 1 user, load average: 0.05, 0.10, 0.08"
+    },
+    "neofetch": {
+      "description": "Displays a colorful system information screen",
+      "output": [
+        "                   -`                    user@arch-pc",
+        "                  .o+`                   ------------",
+        "                 `ooo/                   OS: Arch Linux (WebTerm)",
+        "                `+oooo:                  Kernel: 6.5.9-arch1-1",
+        "               `+oooooo:                 Uptime: 42 mins",
+        "               -+oooooo+:                Packages: 1337 (pacman)",
+        "             `/:-:++oooo+:               Shell: WebTerm v2.0",
+        "            `/++++/+++++++:              Resolution: 1920x1080",
+        "           `/++++++++++++++:             DE: Web Browser",
+        "          `/+++ooooooooo+++/`           WM: Browser Tab",
+        "         ./ooosssso++osssssso+`         Theme: Modern Terminal",
+        "        .oossssso-````/ossssss+`        Icons: Unicode Emojis",
+        "       -osssssso.      :ssssssso.       Terminal: WebTerm",
+        "      :osssssss/        osssso+++.      CPU: JavaScript Engine",
+        "     /ossssssss/        +ssssooo/-      Memory: Simulated",
+        "   `/ossssso+/:-        -:/+osssso+-    ",
+        "  `+sso+:-`                 `.-/+oso:   ",
+        " `++:.                           `-/+/  ",
+        " .`                                 `/  "
+      ]
+    },
+    "screenfetch": {
+      "description": "Alternative system information display",
+      "output": [
+        "         /\\                user@arch-pc",
+        "        /  \\               OS: Arch Linux",
+        "       /    \\              Kernel: x86_64 Linux 6.5.9-arch1-1",
+        "      /      \\             Shell: WebTerm v2.0",
+        "     /   ,,   \\            CPU: Simulated JS Core",
+        "    /   |  |  -\\           RAM: Virtual",
+        "   /_-''    ''-_\\          "
+      ]
+    },
+    "echo": {
+      "description": "Displays the specified text or variables"
+    },
+    "cat": {
+      "description": "Displays the contents of files",
+      "error": "cat: missing file operand"
+    },
+    "head": {
+      "description": "Displays the first lines of a file",
+      "output": "head: missing file operand"
+    },
+    "tail": {
+      "description": "Displays the last lines of a file", 
+      "output": "tail: missing file operand"
+    },
+    "wc": {
+      "description": "Counts lines, words, and characters in files",
+      "output": "wc: missing file operand"
+    },
+    "grep": {
+      "description": "Searches for patterns in text",
+      "output": "grep: missing pattern operand"
+    },
+    "find": {
+      "description": "Searches for files and directories",
+      "output": "find: missing path operand"
+    },
+    "cd": {
+      "description": "Changes the current directory",
+      "action": "changeDirectory"
+    },
+    "mkdir": {
+      "description": "Creates new directories",
+      "action": "makeDirectory"
+    },
+    "touch": {
+      "description": "Creates new files or updates timestamps",
+      "action": "createFile"
+    },
+    "rm": {
+      "description": "Removes files and directories",
+      "action": "removeFile"
+    },
+    "cp": {
+      "description": "Copies files and directories",
+      "output": "cp: missing operand"
+    },
+    "mv": {
+      "description": "Moves or renames files and directories",
+      "output": "mv: missing operand"
+    },
+    "history": {
+      "description": "Shows command history",
+      "action": "showHistory"
+    },
+    "alias": {
+      "description": "Creates command aliases",
+      "output": "alias ll='ls -alF'\nalias la='ls -A'\nalias l='ls -CF'"
+    },
+    "env": {
+      "description": "Displays environment variables",
+      "output": "USER=user\nHOME=/home/user\nPATH=/usr/local/bin:/usr/bin:/bin\nSHELL=/bin/bash\nTERM=webterm"
+    },
+    "ps": {
+      "description": "Shows running processes",
+      "output": "  PID TTY          TIME CMD\n 1337 pts/0    00:00:01 webterm\n 1338 pts/0    00:00:00 bash"
+    },
+    "top": {
+      "description": "Displays running processes (simulated)",
+      "output": "WebTerm - Simulated process monitor\nTasks: 2 total, 1 running, 1 sleeping\nCPU usage: 5.2%\nMemory: Virtual"
+    },
+    "df": {
+      "description": "Shows disk space usage",
+      "output": "Filesystem     1K-blocks    Used Available Use% Mounted on\n/dev/sda1       10485760 5242880   5242880  50% /\ntmpfs            2097152       0   2097152   0% /tmp"
+    },
+    "free": {
+      "description": "Displays memory usage information",
+      "output": "              total        used        free      shared  buff/cache   available\nMem:        2097152      524288     1048576           0      524288     1572864\nSwap:       1048576           0     1048576"
+    },
+    "lscpu": {
+      "description": "Shows CPU information",
+      "output": "Architecture:                    x86_64\nCPU(s):                          1\nModel name:                      JavaScript Engine\nCPU MHz:                         Variable\nVirtualization:                  Browser"
+    },
+    "wget": {
+      "description": "Downloads files from the internet (simulated)",
+      "output": "wget: missing URL"
+    },
+    "curl": {
+      "description": "Transfers data from servers (simulated)",
+      "output": "curl: try 'curl --help' for more information"
+    },
+    "ping": {
+      "description": "Tests network connectivity (simulated)",
+      "output": "ping: missing hostname"
+    },
+    "ssh": {
+      "description": "Secure shell client (simulated)",
+      "output": "ssh: missing hostname"
+    },
+    "git": {
+      "description": "Version control system (simulated)",
+      "output": "git: 'git' is not a git repository (or any of the parent directories): .git"
+    },
+    "nano": {
+      "description": "Text editor (simulated)",
+      "output": "nano: command simulated - real editing not available in web terminal"
+    },
+    "vim": {
+      "description": "Vi text editor (simulated)", 
+      "output": "vim: command simulated - real editing not available in web terminal"
+    },
+    "theme": {
+      "description": "Toggles between light and dark themes",
+      "action": "toggleTheme"
+    },
+    "exit": {
+      "description": "Exits the terminal session",
+      "output": "🚪 Logout\n\nSession ended. Refresh page to start a new session."
+    },
+    "logout": {
+      "description": "Logs out of the current session",
+      "output": "🚪 Logout\n\nSession ended. Refresh page to start a new session."
+    },
+    "which": {
+      "description": "Locates a command",
+      "output": "which: missing command name"
+    },
+    "man": {
+      "description": "Displays manual pages",
+      "output": "man: command simulated - manual pages not available in web terminal"
+    },
+    "info": {
+      "description": "Displays info documents",
+      "output": "info: command simulated - info pages not available in web terminal"
+    },
+    "pacman": {
+      "description": "Arch Linux package manager (simulated)",
+      "output": "pacman: command simulated - package management not available in web terminal"
+    },
+    "systemctl": {
+      "description": "Controls systemd services (simulated)",
+      "output": "systemctl: command simulated - service management not available in web terminal"
+    }
+  }
+}
